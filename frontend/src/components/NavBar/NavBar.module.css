@@ -1,0 +1,39 @@
+
+.container {
+    @apply bg-bg-light w-[100wh] h-[10vh] flex
+    items-center px-[15px] justify-between
+}
+
+.title {
+    @apply text-light text-[28px] font-semibold w-fit h-fit
+}
+
+.icons {
+    @apply flex justify-between items-center pr-[50px] w-[200px]
+}
+
+.account {
+    @apply w-[30px]
+    duration-150 ease-in-out hover:scale-[1.2] hover:cursor-pointer hover:opacity-50
+    hover:shadow-xl
+    active:opacity-90
+}
+
+.family {
+    @apply w-[30px]
+    duration-150 ease-in-out hover:scale-[1.2] hover:cursor-pointer hover:opacity-50
+    hover:shadow-xl
+    active:opacity-90
+}
+
+.utils {
+    @apply w-[30px]
+    duration-150 ease-in-out hover:scale-[1.2] hover:cursor-pointer hover:opacity-50
+    hover:shadow-xl
+    active:opacity-90
+}
+
+.utilslock {
+    @apply w-[30px] opacity-50
+}
+ 

@@ -1,0 +1,70 @@
+Um aplicativo que serve para vizualizarmos as finâncias da casa.
+
+Deve ter como adicionar finâncias mensais e únicas, 
+cada uma se encaixando em uma categoria:
+- Essencial
+- Lazer
+- Ocasional
+- Assinatura
+- Delivery
+
+devemos também adicionar os ganhos que se encaixam nas seguintes categorias:
+- Mensal
+- Pontual
+
+O app deve calcular o saldo e gerar um gráfico mostrando o que está
+mais consumindo as finâncias. Deve existir uma página para projeções também, onde
+é possível ver previsões monetárias caso certas alterações ocorram.
+
+--------  Funcionamento
+
+Ao entrar no site, devemos fazer login. Caso efetuemos o login com sucesso,
+devemos ser redirecionados para a dashboard central, que deve mostrar os últimos
+5 gastos e 5 ganhos com data e valores. Essa é a aba home.
+A aba financias deve mostrar o que entra e o que sai, permitindo fácil edição.
+A aba projeção deve ser igual a de finâncias, só que mostrando projeções futuras
+e não atuais. A página home e financias devem conter gráficos.
+
+Primeiro alguém cria a família, depois todo membro que quiser entrar na família
+deve saber a senha da família para se conectar.
+Depois disso, o app funciona como já descrito.
+
+-------- Tecnico
+Uma FAMILIA tem várias CONTAS
+FAMILIA -> Campos: Nome, quantidade de membros, membros[] (linka em cada membro)
+                   saldo familiar, financieas[] (deve puxar todas as financias
+                                                todos os familiares),
+                    senha da família.
+
+Página de login -> entidade CONTA
+
+CONTA possui várias FINÂNCIAS (one to many).
+CONTA -> Campos: nome, email, financias[], familia (super link to families table.),
+                 saldo pessoal.
+
+FINÂNCIA -> Entidade com os campos nome, descrição, data, recorrencia, categoria, 
+            entrada/saida e valor
+
+-------- Elementos padronizados: RECORRENCIA: Mensal ou Pontual
+        CATEGORIA: Essencial, Lazer, Pontual, Assinatura, Delivery
+
+-------- Tecnico 2
+
+rotas:
+- Criar familia
+- Criar CONTA
+- Criar financias
+- Editar financias
+- Editar CONTA
+- Editar familia
+OBS SALDO DA FAMILIA E FINANCIAS DA FAMILIA NÃO PODEM SER EDITADOS.
+Devem ser editadas as contas com o intuito de impactar a família.
+- Deletar financias
+- Deletar CONTA
+- Deletar familia
+
+- login
+
+------------ Tecnico 3
+Páginas: Login, Criar família, criar conta,
+Dashboard -> 3 abas: Home, financias, projeçõoes.
