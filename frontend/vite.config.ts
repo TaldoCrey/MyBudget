@@ -9,6 +9,10 @@ export default defineConfig({
     alias: {
       react: path.resolve(__dirname, './node_modules/react'),
       'react-dom': path.resolve(__dirname, './node_modules/react-dom')
-    }
+    },
+  },
+  server: {
+    host:true,
+    port:5173
   }
 })

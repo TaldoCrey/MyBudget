@@ -51,20 +51,32 @@ FINÂNCIA -> Entidade com os campos nome, descrição, data, recorrencia, catego
 -------- Tecnico 2
 
 rotas:
-- Criar familia
-- Criar CONTA
-- Criar financias
-- Editar financias
-- Editar CONTA
-- Editar familia
+- Criar familia - POST /family x
+- Criar CONTA - POST /account x
+- Criar financias - POST /budget
+- Editar financias - PUT /budget
+- Editar CONTA - PUT /account 
+- Editar familia - PUT /family 
 OBS SALDO DA FAMILIA E FINANCIAS DA FAMILIA NÃO PODEM SER EDITADOS.
 Devem ser editadas as contas com o intuito de impactar a família.
-- Deletar financias
-- Deletar CONTA
-- Deletar familia
+- Deletar financias DEL - /budget
+- Deletar CONTA DEL - /account 
+- Deletar familia DEL - /family
 
-- login
+- login GET - email/username e senha.
+- family GET - nome da familia (verifica se a família existe no banco de dados. Se existir, retorna true, senão, retorna false.
+- user register - POST - email/username, senha e família 
 
 ------------ Tecnico 3
 Páginas: Login, Criar família, criar conta,
 Dashboard -> 3 abas: Home, financias, projeçõoes.
+
+------------------ Tecnico 4
+PLANEJAMENTO DA API
+
+ROTAS: /family - GET | POST | PUT | DELETE
+       /account - GET | POST | PUT | DELETE
+       /budget - GET | POST | PUT | DELETE
+       /family/budget - GET
+       /account/budget - GET | POST | PUT | DELETE
+       

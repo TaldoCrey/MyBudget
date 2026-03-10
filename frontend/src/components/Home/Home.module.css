@@ -4,5 +4,6 @@
 }
 
 .row {
-    @apply bg-none w-full h-fit flex space-x-1
+    @apply bg-none h-fit flex space-x-1 max-sm:flex-col max-sm:space-y-2 max-sm:justify-center
+    max-sm:items-center
 }

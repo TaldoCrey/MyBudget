@@ -1,13 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Dropdown.module.css"
-import { type dropProperties } from "../../types/finances";
+import { type dropProperties } from "../../types/types";
+import { dropContext } from "../../context";
 
-function Dropdown() {
+function Dropdown(props: {options: string[], FreqDrop: boolean}) {
 
     const [dropdown, setDropdown] = useState<dropProperties>({visible:false, x:0, y:0});
     const dropRef = useRef<HTMLDivElement>(null);
     const triggerRef = useRef<HTMLDivElement>(null);
-    const [currentOpt, setCurrentOpt] = useState("A");
+    const [currentOpt, setCurrentOpt] = useState(props.options[0]);
+
+    const context = useContext(dropContext);
+    const {sendFreq, sendType} = context;
 
     const handleCloseDropdown = () => {
         setDropdown(m => m = {...m, visible: false});
@@ -20,7 +24,7 @@ function Dropdown() {
             return
         }
         const rect = triggerRef.current.getBoundingClientRect();
-        setDropdown({visible: true, x:rect.left - 170, y:rect.bottom + 5});
+        setDropdown({visible: true, x:rect.left - 215, y:rect.top + 5});
     }
 
     useEffect(() => {
@@ -49,8 +53,12 @@ function Dropdown() {
     const handleOptionClick = (option: string) => {
         setCurrentOpt(option);
         handleCloseDropdown();
+        if (props.FreqDrop) {
+            sendFreq(option);
+        } else {
+            sendType(option);
+        }
     }
-    const options: string[] = ["A", "B", "C", "d", "e"]
 
     return(
         <>
@@ -62,10 +70,10 @@ function Dropdown() {
                     {currentOpt}
                 </div>
             </div>
-            {dropdown.visible && (<div ref={dropRef} style={{position: 'fixed', top:`${dropdown.y}px`, left: `${dropdown.x}px`, zIndex:1000}}
+            {dropdown.visible && (<div ref={dropRef} style={{position: 'relative', top:`5px`}}
                 className={styles.options}>
                 <ul>
-                    {options.map((value) => (
+                    {props.options.map((value) => (
                         <li className={styles.listopt} onClick={() => (handleOptionClick(value))}>
                             {value}
                         </li>
