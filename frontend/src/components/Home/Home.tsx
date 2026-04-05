@@ -12,6 +12,8 @@ import { type despesa, type GraphColor, type MonthlySpent } from "../../types/ty
 import generateRandomGraphColor from "../../utils.ts";
 import MoneyPanel from "../Panels/MoneyPanel.tsx";
 import { Bounce, ToastContainer } from "react-toastify";
+import { expenseContext, tableContext, type ExpenseContext, type TableContext } from "../../context.ts";
+import ExpenseView from "../Modals/ExpenseVierw.tsx";
 
 function Home(props: {account: Account}) {
     const [family, setFamily] = useState<Family>({family_balance:0, id:"", name:"",relatives: []})
@@ -21,6 +23,7 @@ function Home(props: {account: Account}) {
     const [gains, setGains] = useState(0);
     const [despesas, setDespesas] = useState<despesa[]>([{id:"", autor:"",descricao:"",freq:"",tipo:"",valor:0}]);
     const [spentMonth, setMonthlySpents] = useState<MonthlySpent[]>([]);
+    const [seeExpense, setSeeExpense] = useState<{view:boolean, expense: despesa}>({view:false, expense: {id:"",autor:"",descricao:"",freq:"",tipo:"",valor:0}})
 
     useEffect(() => {
         const fetchFamilyData = async () => {
@@ -159,7 +162,23 @@ function Home(props: {account: Account}) {
         })
     }
 
+    const TableContextValue: TableContext = {
+        viewExpense: (expense: despesa) => {
+            const data = {view: true, expense: expense}
+            setSeeExpense(data);
+        }
+    }
+
+    const ExpenseContextValue: ExpenseContext = {
+        close: () => {
+            setSeeExpense(d => d = {...d, view:false});
+        },
+        expire: () => {},
+        deleteBudget: () => {}
+    }
+
     return(
+        <>
         <div className={styles.container}>
             <div className={styles.row}>
                 <div className="w-[550px] h-[500px] max-sm:w-[300px] max-sm:h-[400px]">
@@ -180,22 +199,22 @@ function Home(props: {account: Account}) {
             </div>
             <div className="flex flex-col justify-center items-center">
                 <h1 className="text-txt font-bold text-[24px] max-sm:text-[18px] mb-5">Tabela de Gastos</h1>
+                <tableContext.Provider value={TableContextValue}>
                 <Table data={despesas}/>
+                </tableContext.Provider>
+
             </div>
-            <ToastContainer
-                position="top-right"
-                autoClose={3500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-                transition={Bounce}
-            />
+            
         </div>
+
+        {seeExpense.view && (
+            <div className="fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                <expenseContext.Provider value={ExpenseContextValue}>
+                <ExpenseView data={seeExpense.expense}/>
+                </expenseContext.Provider>
+            </div>
+        )}
+        </>
     );
 }
                 

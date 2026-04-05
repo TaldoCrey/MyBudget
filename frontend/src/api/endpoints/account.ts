@@ -34,8 +34,8 @@ export async function login(email:string, password:string) {
         return response.data;
 
     } catch {
-        console.log("Erro ao logar")
-        return -1
+        console.log("Erro ao logar");
+        return -1;
     }
 }
 

@@ -188,7 +188,7 @@ function Finances(props: {account: Account}) {
     }
 
     const rankingSpents: {label:string, value:number}[] = props.account.budgets.filter((e) => e.value < 0).sort((a, b) => b.value - a.value).map((b) => (
-        {label: b.description, value: b.value}
+        {label: b.description, value: b.value * -1}
     ))
 
     const rankingEarns: {label:string, value:number}[] = props.account.budgets.filter((e) => e.value > 0).sort((a, b) => b.value - a.value).map((b) => (
@@ -241,20 +241,6 @@ function Finances(props: {account: Account}) {
                     </expenseContext.Provider>
                 </div>
             )}
-
-            <ToastContainer
-                position="top-right"
-                autoClose={3500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-                transition={Bounce}
-            />
         </>
         
     );

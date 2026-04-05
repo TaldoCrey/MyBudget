@@ -36,11 +36,11 @@ function Body(props: {currentPage:number, account: Account}) {
                 autoClose={3500}
                 hideProgressBar={false}
                 newestOnTop={false}
-                closeOnClick={false}
+                closeOnClick={true}
                 rtl={false}
-                pauseOnFocusLoss
+                pauseOnFocusLoss={false}
                 draggable
-                pauseOnHover
+                pauseOnHover={false}
                 theme="colored"
                 transition={Bounce}
             />

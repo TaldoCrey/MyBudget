@@ -85,3 +85,11 @@ export const expenseContext = createContext<ExpenseContext>({
     expire: () => {},
     deleteBudget: () => {}
 })
+
+export interface TableContext {
+    viewExpense: (expense: despesa) => void;
+}
+
+export const tableContext = createContext<TableContext>({
+    viewExpense: () => {}
+})

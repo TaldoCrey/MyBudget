@@ -1,7 +1,13 @@
+import { useContext } from "react";
 import { brlFormatter, type despesa } from "../../types/types";
 import styles from "./Panel.module.css"
+import { tableContext } from "../../context";
 
 function Table(props: {data: despesa[]}) {
+
+    const context = useContext(tableContext);
+
+    const {viewExpense} = context;
 
     return(
         <div className={styles.table}>
@@ -17,7 +23,7 @@ function Table(props: {data: despesa[]}) {
                 props.data.map((gasto: despesa) => (
                     <>
                     <hr className="border-bg-light"/>
-                    <li className={styles.itemrow}>
+                    <li className={styles.itemrow} onClick={() => viewExpense(gasto)}>
                         <div className={styles.item}>
                             <img src={`/${gasto.tipo.toLowerCase()}.svg`} className={styles.icons} alt={gasto.tipo}/>
                         </div>

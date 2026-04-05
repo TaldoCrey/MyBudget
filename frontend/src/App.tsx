@@ -58,13 +58,13 @@ function App() {
     const LoginContextValue: LoginContext = {
         login: async (email: string, password: string) => {
             console.log(`email: ${email} | senha: ${password}`);
-            if (email == "" && password == "") {
+            if (email == "" || password == "") {
                 toast.error("Email e a Senha devem estar preenchidos!");
                 return;
             }
             const accountData = await accountAPI.login(email, password);
+            console.log(JSON.stringify(accountData));
             if (accountData != -1) {
-                console.log(JSON.stringify(accountData));
                 const token = accountData.token;
                 const account: Account = accountData.account;
                 console.log(`logou?: ${account.id}`)
@@ -105,7 +105,7 @@ function App() {
 
         register: async (name:string, email:string, password:string, family:string) => {
             console.log(`name: ${name} | email: ${email} | password: ${password} | family_name: ${family}`)
-            if (name == "" && email == "" && password == "" && family == "") {
+            if (name == "" || email == "" || password == "" || family == "") {
                 toast.error("Todos os campos devem estar preenchidos!");
                 return;
             }
@@ -150,6 +150,7 @@ function App() {
                     setAccount(info);
                     setLogin(true);
                 } else {
+                    localStorage.clear();
                     setLogin(false);
                 }
             }
@@ -165,19 +166,6 @@ function App() {
                 <NavBar account={account}/>
                 </navBarContext.Provider>
                 <Body currentPage={currentPage} account={account}/>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={3500}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={false}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="colored"
-                    transition={Bounce}
-                />
             </>
         );
     } else if (registered) {
@@ -191,11 +179,11 @@ function App() {
                     autoClose={3500}
                     hideProgressBar={false}
                     newestOnTop={false}
-                    closeOnClick={false}
+                    closeOnClick={true}
                     rtl={false}
-                    pauseOnFocusLoss
+                    pauseOnFocusLoss={false}
                     draggable
-                    pauseOnHover
+                    pauseOnHover={false}
                     theme="colored"
                     transition={Bounce}
                 />
@@ -212,11 +200,11 @@ function App() {
                     autoClose={3500}
                     hideProgressBar={false}
                     newestOnTop={false}
-                    closeOnClick={false}
+                    closeOnClick={true}
                     rtl={false}
-                    pauseOnFocusLoss
+                    pauseOnFocusLoss={false}
                     draggable
-                    pauseOnHover
+                    pauseOnHover={false}
                     theme="colored"
                     transition={Bounce}
                 />
