@@ -12,6 +12,8 @@ import Expense from "../Modals/Expense.tsx";
 import DGraphPanel from "../Panels/DGraphPanel.tsx";
 import type { ChartData } from "chart.js";
 import RankingPanel from "../Panels/RankingPanel.tsx";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Finances(props: {account: Account}) {
 
@@ -136,7 +138,7 @@ function Finances(props: {account: Account}) {
 
     const FormContextValue: FormContext = {
         closeForm: (value: boolean) => setOpenForm(m => m = {...m, view:!value}),
-        sendInfo: async (info: addBudget) => {
+        sendInfo: async (info: addBudget | null) => {
             if (info) {
                 console.log(`info => ${JSON.stringify(info)}`)
                 const budgetId = await budgetAPI.createBudget(info);
@@ -145,8 +147,15 @@ function Finances(props: {account: Account}) {
                     if (budget) {
                         const updatedAcc: Account = {...props.account, budgets: [...props.account.budgets, budget], balance: props.account.balance + budget.value};
                         updateAccount(updatedAcc);
+                        toast.success("Orçamento criado com sucesso!");
+                    } else {
+                        toast.error("Um erro interno aconteceu. Tente novamente mais tarde.")
                     }
+                } else {
+                    toast.error("Erro ao criar orçamento.")
                 }
+            } else {
+                toast.error("Todos os campos devem ser preenchidos!");
             }
         }
     }
@@ -159,6 +168,9 @@ function Finances(props: {account: Account}) {
                 const updatedBudgets = [...props.account.budgets].filter((b) => b.budget_id != id);
                 updateAccount({...props.account, budgets:updatedBudgets});
                 setSeeExpense(m => m = {...m, view:false});
+                toast.info("Orçamento expirado com sucesso!");
+            } else {
+                toast.error("Erro ao expirar orçamento!");
             }
         },
 
@@ -168,6 +180,9 @@ function Finances(props: {account: Account}) {
                 const updatedBudgets = [...props.account.budgets].filter((b) => b.budget_id != id);
                 updateAccount({...props.account, budgets:updatedBudgets, balance:props.account.balance - (props.account.budgets.filter((b) => b.budget_id == id))[0].value});
                 setSeeExpense(m => m = {...m, view:false});
+                toast.info("Orçamento deletado com sucesso!");
+            } else {
+                toast.error("Erro ao deletar orçamento!");
             }
         }
     }
@@ -226,6 +241,20 @@ function Finances(props: {account: Account}) {
                     </expenseContext.Provider>
                 </div>
             )}
+
+            <ToastContainer
+                position="top-right"
+                autoClose={3500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
         </>
         
     );

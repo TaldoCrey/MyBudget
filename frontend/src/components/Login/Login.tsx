@@ -27,7 +27,7 @@ function Login() {
     }
 
     return(
-
+        <>
         <div className="h-[100vh] flex justify-center items-center">
             <div className="flex flex-col bg-bg-mid max-sm:w-[350px] w-[600px] h-[400px] rounded-[12px] py-[2px]">
                 <div className="flex justify-center items-center">
@@ -54,6 +54,7 @@ function Login() {
             </div>
         </div>
 
+    </>
     );
 }
 

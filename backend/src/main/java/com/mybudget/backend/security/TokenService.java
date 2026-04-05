@@ -7,7 +7,9 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.mybudget.backend.Entities.Account;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -39,7 +41,8 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm).withIssuer("MyBudgetAPI").build().verify(tokenJWT).getSubject();
         } catch (JWTVerificationException exception) {
-            throw new RuntimeException("Token invalido ou expirado");
+            System.out.println("Token inválido ou expirado.");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
 

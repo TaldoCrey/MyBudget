@@ -49,16 +49,22 @@ function FinanceForm(props: { account: Account, isGasto: boolean }) {
             tipo = "OCCASIONAL"
         }
 
-        const budget: addBudget = {
-            authorId: props.account.id,
-            description: description,
-            frequency: frequency,
-            type: tipo,
-            value: value
+        if (description != "" && value != 0) {
+            const budget: addBudget = {
+                authorId: props.account.id,
+                description: description,
+                frequency: frequency,
+                type: tipo,
+                value: value
+            }
+
+            closeForm(true);
+            sendInfo(budget);
+        } else {
+            sendInfo(null);
         }
 
-        closeForm(true);
-        sendInfo(budget);
+        
     }
 
     return (

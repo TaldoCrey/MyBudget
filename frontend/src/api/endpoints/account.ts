@@ -18,6 +18,7 @@ export async function createAccount(name: string, email: string, password: strin
         return response.data;
     } catch {
         console.log("Erro ao criar conta");
+        return -1
     }
 }
 
@@ -33,7 +34,8 @@ export async function login(email:string, password:string) {
         return response.data;
 
     } catch {
-        console.log("Erro ao logar");
+        console.log("Erro ao logar")
+        return -1
     }
 }
 
@@ -43,6 +45,7 @@ export async function getAccount(id: string) {
         return response.data;
     } catch {
         console.log(`Erro ao encontrar conta de id -> ${id}`);
+        return -1
     }
 }
 
@@ -52,6 +55,7 @@ export async function getSpents(id:string) {
         return response.data;
     } catch {
         console.log(`Erro ao encontrar conta de id -> ${id}`);
+        return -1
     }
 }
 
@@ -61,6 +65,7 @@ export async function getGains(id:string) {
         return response.data;
     } catch {
         console.log(`Erro ao encontrar conta de id -> ${id}`);
+        return -1
     }
 }
 
@@ -70,6 +75,7 @@ export async function getMonthlySpents(id: string) {
         return response.data;
     } catch {
         console.log(`Erro ao encontrar conta de id -> ${id}`);
+        return -1
     }
 }
 
@@ -79,5 +85,6 @@ export async function deleteAccount(id: string) {
         return response.status;
     } catch {
         console.log(`Erro ao encontrar conta de id -> ${id}`);
+        return -1
     }
 }

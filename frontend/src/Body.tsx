@@ -2,8 +2,10 @@
 import Home from "./components/Home/Home.tsx"
 import Finances from "./components/Finances/Finances.tsx"
 import type { Account } from "./types/requests.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { bodyContext, type BodyContext } from "./context.ts";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import Planner from "./components/Planner/Planner.tsx"
 
 
@@ -18,6 +20,10 @@ function Body(props: {currentPage:number, account: Account}) {
         }
     }
 
+    useEffect(() => {
+        toast.success("Login efetuado com sucesso!");
+    }, [])
+
     return(
         <>
             <bodyContext.Provider value={BodyContextValue}>
@@ -25,6 +31,19 @@ function Body(props: {currentPage:number, account: Account}) {
                 (props.currentPage == 0 ? <Home account={account}/> : <Finances account={account}/>)
             }
             </bodyContext.Provider>
+            <ToastContainer
+                position="top-right"
+                autoClose={3500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
         </>
     );
 }

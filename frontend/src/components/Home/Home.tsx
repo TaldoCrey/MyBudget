@@ -11,6 +11,8 @@ import type { ChartData } from "chart.js";
 import { type despesa, type GraphColor, type MonthlySpent } from "../../types/types.ts";
 import generateRandomGraphColor from "../../utils.ts";
 import MoneyPanel from "../Panels/MoneyPanel.tsx";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Home(props: {account: Account}) {
     const [family, setFamily] = useState<Family>({family_balance:0, id:"", name:"",relatives: []})
@@ -95,6 +97,8 @@ function Home(props: {account: Account}) {
         }   
 
         getPGraphColors();
+
+        toast.success("Você entrou com sucesso!");
     }, [])
 
     useEffect(() => {
@@ -181,12 +185,23 @@ function Home(props: {account: Account}) {
                 <h1 className="text-txt font-bold text-[24px] max-sm:text-[18px] mb-5">Tabela de Gastos</h1>
                 <Table data={despesas}/>
             </div>
-            
+            <ToastContainer
+                position="top-right"
+                autoClose={3500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
         </div>
     );
 }
                 
 
-//[{label:`Lazer`, value: spents.hobby}, {label: "Delivery", value:spents.delivery},{label:"Ocasionais", value:spents.occasional}, {label:"Assinaturas", value:spents.streaming}, {label:"Essenciais", value:spents.essential}]
 
 export default Home;
