@@ -11,8 +11,7 @@ import type { ChartData } from "chart.js";
 import { type despesa, type GraphColor, type MonthlySpent } from "../../types/types.ts";
 import generateRandomGraphColor from "../../utils.ts";
 import MoneyPanel from "../Panels/MoneyPanel.tsx";
-import { Bounce, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Bounce, ToastContainer } from "react-toastify";
 
 function Home(props: {account: Account}) {
     const [family, setFamily] = useState<Family>({family_balance:0, id:"", name:"",relatives: []})
@@ -97,8 +96,6 @@ function Home(props: {account: Account}) {
         }   
 
         getPGraphColors();
-
-        toast.success("Você entrou com sucesso!");
     }, [])
 
     useEffect(() => {
